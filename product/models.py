@@ -175,6 +175,13 @@ class Size(models.Model):
     def __str__(self):
         return self.size
 
+
+class IpAddress(models.Model):
+    ip=models.GenericIPAddressField()
+    def __str__(self):
+        return str(self.ip)
+        
+
 class Product(models.Model):
     STATUS_CHOICE={
         ('p','انتشار'),
