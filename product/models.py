@@ -96,7 +96,55 @@ class MainCategory(CategoryABC):
     objects=CategoryManager()
 
 
+class Banner(CategoryABS):
+    TYPE_CATEGORIES={
+        ('seasonal','فصلی'),
+        ('special_offer','پیشنهادات ویژه')
+    }
+    description = models.CharField(
+            max_length=250,
+            verbose_name='توضیحات'        
+    )
+    type_category=models.CharField(
+        max_length=15,
+        choices=TYPE_CATEGORIES,
+        verbose_name='نوع دسته بندی'
+    )
 
+    def get_absolute_url(self):
+        return reverse('product:special_category_list',args=[self.slug])
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name='دسته بندی ویژه' 
+        verbose_name_plural='دسته بندی های ویژه'
+        
+    objects=CategoryManager()
+
+class DiscountProduct(models.Model):
+    discount_percent=models.IntegerField(
+        validators=[MinValueValidator(0),MaxValueValidator(100)],verbose_name="درصد تخفیف"
+    )
+    valid_from=models.DateTimeField(
+        verbose_name="اعتبار از"
+    )
+    valid_to=models.DateTimeField(
+        verbose_name='اعتبار تا'
+    )
+    active=models.BooleanField(
+        verbose_name="فعال"
+    )
+
+    class Meta:
+        verbose_name='تخفیف محصول'
+        verbose_name_plural='تخفیف محصولات'
+
+    def __str__(self):
+        return str(self.discount_percent) + 'درصد'
+
+        
 class Product(models.Model):
     STATUS_CHOICE={
         ('p','انتشار'),
