@@ -158,13 +158,22 @@ class Color(models.Model):
         return format_html(
             f'<p style="color:{self.code};width:200px;border:solid;border-width:10px;"></p>'
             )
-            
+
     class Meta:
         verbose_name='رنگ'
         verbose_name_plural='رنگ ها'
     color_pic.short_description = 'رنگ'
 
+class Size(models.Model):
+    size = models.CharField(
+        max_length = 150
+    )
+    class Meta:
+        verbose_name='اندازه'
+        verbose_name_plural='اندازه ها'
 
+    def __str__(self):
+        return self.size
 
 class Product(models.Model):
     STATUS_CHOICE={
