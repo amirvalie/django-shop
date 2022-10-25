@@ -96,6 +96,22 @@ class MainCategory(CategoryABC):
     objects=CategoryManager()
 
 
+class Brand(models.Model):
+    brand_name=models.CharField(max_length = 100,unique=True,verbose_name='نام برند')
+    logo = models.ImageField(upload_to='logo',max_length=100,verbose_name='لوگو')
+    class Meta:
+        verbose_name='برند'
+        verbose_name_plural='برندها'
+    def display_logo(self):
+        
+        logo_format=format_html(
+            f'<image style="width:100px" src="{self.logo.url}">'
+        )
+        return logo_format
+
+    def __str__(self):
+        return self.brand_name
+
 class Banner(CategoryABS):
     TYPE_CATEGORIES={
         ('seasonal','فصلی'),
