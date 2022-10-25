@@ -384,3 +384,19 @@ class ProductColor(models.Model):
     price = models.FloatField(
             verbose_name='قیمت رنگ محصول'
         )
+
+class ProductSize(models.Model):
+    product = models.ForeignKey(
+            Product,
+            on_delete=models.CASCADE,
+            verbose_name='محصول',
+            related_name='sizes',
+        )
+    size = models.ForeignKey(
+            Size,
+            on_delete=models.CASCADE,
+            verbose_name='اندازه محصول',
+        )
+    price = models.FloatField(
+            verbose_name='قیمت اندازه محصول',
+        )
