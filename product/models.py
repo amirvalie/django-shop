@@ -72,6 +72,31 @@ class CategoryABC(models.Model):
         abstract = True
 
 
+class MainCategory(CategoryABC):
+    parent=models.ForeignKey(
+        'self',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        default=None,
+        related_name='children',
+        verbose_name="والد"
+    )
+
+    def get_absolute_url(self):
+        return reverse('product:category_list',args=[self.slug])
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name='دسته بندی'
+        verbose_name_plural='دسته بندی ها'
+
+    objects=CategoryManager()
+
+
+
 class Product(models.Model):
     STATUS_CHOICE={
         ('p','انتشار'),
