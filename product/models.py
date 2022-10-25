@@ -103,7 +103,7 @@ class Brand(models.Model):
         verbose_name='برند'
         verbose_name_plural='برندها'
     def display_logo(self):
-        
+
         logo_format=format_html(
             f'<image style="width:100px" src="{self.logo.url}">'
         )
@@ -325,3 +325,30 @@ class Product(models.Model):
         verbose_name_plural='محصولات'
         ordering=['-created']
     objects=ProductManager()
+
+
+class Specification(models.Model):
+    SECTION={
+        ('short_spec','توضیحات کوتاه'),
+        ('long_spec','توضیحات بلند'),
+        ('both','هردو'),
+    }
+    product = models.ForeignKey(
+            Product,
+            on_delete=models.CASCADE,
+            verbose_name='محصول',
+            related_name='spec'
+        )
+    key=models.CharField(
+            max_length=50,
+            verbose_name='ویژگی'
+        )
+    value=models.CharField(
+            max_length=150,
+            verbose_name='مقدار ویژگی'
+        )
+    section=models.CharField(
+            max_length=20,
+            choices=SECTION,
+            verbose_name='بخش'
+        )
