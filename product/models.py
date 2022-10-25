@@ -128,7 +128,7 @@ class Banner(CategoryABS):
     )
 
     def get_absolute_url(self):
-        return reverse('product:special_category_list',args=[self.slug])
+        return reverse('product:banner',args=[self.slug])
 
     def __str__(self):
         return self.title
@@ -223,7 +223,7 @@ class Product(models.Model):
         related_name = 'products_for_category',
     )
     banner = models.ManyToManyField(
-        SpecialCategory,
+        Banner,
         verbose_name = 'بنرها',
         related_name = 'products_for_banner',
         blank = True,
