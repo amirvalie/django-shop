@@ -369,3 +369,18 @@ class ProductImage(models.Model):
         verbose_name='عکس'
         verbose_name_plural='عکس ها'
 
+class ProductColor(models.Model):
+    product = models.ForeignKey(
+            Product,
+            on_delete=models.CASCADE,
+            verbose_name='محصول',
+            related_name='colors',
+        )
+    color = models.ForeignKey(
+            Color,
+            on_delete=models.CASCADE,
+            verbose_name='رنگ محصول',
+        )
+    price = models.FloatField(
+            verbose_name='قیمت رنگ محصول'
+        )
