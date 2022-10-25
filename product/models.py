@@ -144,7 +144,28 @@ class DiscountProduct(models.Model):
     def __str__(self):
         return str(self.discount_percent) + 'درصد'
 
+class Color(models.Model):
+    code=models.CharField(
+        max_length=50,
+        verbose_name='کد رنگ',
+    )
+    name=models.CharField(max_length=50,verbose_name='نام رنگ')
+    
+    def __str__(self):
+        return self.name
         
+    def color_pic(self):
+        return format_html(
+            f'<p style="color:{self.code};width:200px;border:solid;border-width:10px;"></p>'
+            )
+            
+    class Meta:
+        verbose_name='رنگ'
+        verbose_name_plural='رنگ ها'
+    color_pic.short_description = 'رنگ'
+
+
+
 class Product(models.Model):
     STATUS_CHOICE={
         ('p','انتشار'),
