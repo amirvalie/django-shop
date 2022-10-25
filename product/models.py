@@ -37,6 +37,41 @@ class ProductManager(models.Manager):
 
 
 
+class CategoryManager(models.Manager):
+    def category_publish(self):
+        return self.filter(status='p')
+
+
+class CategoryABC(models.Model):
+    STATUS_CHOICE={
+        ('p','انتشار'),
+        ('d','پیش نویس'),
+    }
+    title=models.CharField(
+        max_length=200,
+        verbose_name='عنوان',
+    )
+    slug=models.SlugField(
+        max_length=100,
+        unique=True,
+        verbose_name='ادرس دسته بندی'
+    )
+    status=models.CharField(
+        max_length=1,
+        choices=STATUS_CHOICE,
+        verbose_name='وضعیت',
+    )
+    thumbnail=models.ImageField(
+        upload_to='category',
+        verbose_name='عکس',
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        abstract = True
+
+
 class Product(models.Model):
     STATUS_CHOICE={
         ('p','انتشار'),
