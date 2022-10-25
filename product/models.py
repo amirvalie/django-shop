@@ -353,7 +353,7 @@ class Specification(models.Model):
             verbose_name='بخش'
         )
 
-class ImageProduct(models.Model):
+class ProductImage(models.Model):
     product=models.ForeignKey(
             Product,
             on_delete=models.CASCADE,
@@ -368,3 +368,4 @@ class ImageProduct(models.Model):
     class Meta:
         verbose_name='عکس'
         verbose_name_plural='عکس ها'
+
