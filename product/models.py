@@ -352,3 +352,19 @@ class Specification(models.Model):
             choices=SECTION,
             verbose_name='بخش'
         )
+
+class ImageProduct(models.Model):
+    product=models.ForeignKey(
+            Product,
+            on_delete=models.CASCADE,
+            verbose_name='محصول',
+            related_name='product_image'
+        )
+    image=models.FileField(
+            upload_to='image',
+            verbose_name='عکس'
+        )
+
+    class Meta:
+        verbose_name='عکس'
+        verbose_name_plural='عکس ها'
