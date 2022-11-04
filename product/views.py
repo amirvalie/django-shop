@@ -61,7 +61,7 @@ class ProductDetail(DetailView):
         context['form']=CartAddProductFrom()
         return context   
 
-class Search(ListView):
+class ProductSearch(ListView):
     template_name='product/search_result.html'
     context_object_name='products'
     model=Product
@@ -70,3 +70,12 @@ class Search(ListView):
         query=self.request.GET.get('q',"None")
         object_list=Product.objects.filter(Q(title__icontains=query) | Q(slug__icontains=query))
         return object_list
+
+class ProductsInCategory(ListView):
+    template_name='product/list.html'
+    context_object_name='products'
+    paginate_by=10
+    def get_queryset(self):
+        slug=self.kwargs.get('slug')
+        category=get_object_or_404(MainCategory.objects.category_publish(),slug=slug)
+        return category.products.product_publish()
