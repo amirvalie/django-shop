@@ -36,3 +36,19 @@ class ListProduct(ListView):
         context['brands']=Brand.objects.all()
         return context
 
+class ProductDetail(DetailView):
+    template_name='product/detail.html' 
+    context_object_name='product'
+
+    def get_object(self):
+        slug=self.kwargs.get('slug')
+        product=get_object_or_404(Product.objects.product_publish(),slug=slug)
+        ip_address=self.request.user.ip_address
+        if not ip_address in product.visits.values_list('ip',flat=True):
+            ip_object=IpAddress.objects.create(
+                ip=ip_address
+            )
+            product.visits.add(
+                ip_object
+            )
+        return product  
