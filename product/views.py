@@ -52,3 +52,11 @@ class ProductDetail(DetailView):
                 ip_object
             )
         return product  
+
+    def get_context_data(self,**kwargs):
+        context=super().get_context_data(**kwargs)
+        product=context.get('product')
+        related_product=Product.objects.filter(title__icontains=product.title[:5]).exclude(id=product.id)[:5]
+        context['related_products']=related_product
+        context['form']=CartAddProductFrom()
+        return context   
