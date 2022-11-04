@@ -7,12 +7,12 @@ from .models import (
     MainCategory,
     Banner,
     Product,
-    ImageProduct,
+    ProductImage,
     Color,
     IpAddress,
-    ColorProduct,
+    ProductColor,
     Brand,
-    SizeProduct,
+    ProductSize,
     Size,
     DiscountProduct,
     Specification,
@@ -30,25 +30,25 @@ class BannerAdmin(admin.ModelAdmin):
     list_filter=['title']
     search_fields=['title','slug','description']
 
-class ImageProductAdmin(admin.StackedInline):
-    model = ImageProduct
+class ProductImageAdmin(admin.StackedInline):
+    model = ProductImage
 
-class ColorProductAdmin(admin.TabularInline):
-    model = ColorProduct
+class ProductColorAdmin(admin.TabularInline):
+    model = ProductColor
 
-class SizeProductAdmin(admin.TabularInline):
-    model = SizeProduct
+class ProductSizeAdmin(admin.TabularInline):
+    model = ProductSize
 
 class SpecificationAdmin(admin.TabularInline):
     model = Specification
     
 class ProductAdmin(admin.ModelAdmin):
-    list_display=['title','status','number_of_visits','cal_discount']
+    list_display=['title','status','cal_discount']
     list_filter=['slug','main_category',]
     search_fields=['category','slug']
     ordering=['-updated']
-    inlines = [SpecificationAdmin,ImageProductAdmin,ColorProductAdmin,SizeProductAdmin]   
-    readonly_fields=['number_of_visits','cal_discount']
+    inlines = [SpecificationAdmin,ProductImageAdmin,ProductColorAdmin,ProductSizeAdmin]   
+    readonly_fields=['cal_discount']
 
 class ColorAdmin(admin.ModelAdmin):
     list_display=['color_pic']
@@ -61,7 +61,7 @@ class BrandAdmin(admin.ModelAdmin):
 
 
 admin.site.register(MainCategory,MainCategoryAdmin)
-admin.site.register(SpecialCategory,SpecialCategoryAdmin)
+admin.site.register(Banner,BannerAdmin)
 admin.site.register(Product,ProductAdmin)
 admin.site.register(Color,ColorAdmin)
 admin.site.register(Brand,BrandAdmin)

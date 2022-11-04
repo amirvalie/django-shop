@@ -1,4 +1,21 @@
 from django.db import models
+from django.db.models.deletion import SET_NULL
+from django.db.models import Max
+from django.db.models.expressions import Col
+from django.urls import reverse
+from django.db.models import Q
+from django.utils.html import format_html
+from django.db.models import Count
+from django.core.validators import (
+        MinValueValidator,
+        MaxValueValidator,
+    )
+from django.db.models import Avg,Count
+from django.utils import timezone
+# Create your models here.
+from django.contrib.auth import get_user_model 
+User=get_user_model()
+
 
 # Create your models here.
 class ProductManager(models.Manager):
@@ -112,7 +129,7 @@ class Brand(models.Model):
     def __str__(self):
         return self.brand_name
 
-class Banner(CategoryABS):
+class Banner(CategoryABC):
     TYPE_CATEGORIES={
         ('seasonal','فصلی'),
         ('special_offer','پیشنهادات ویژه')
