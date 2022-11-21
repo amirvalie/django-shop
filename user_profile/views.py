@@ -77,3 +77,21 @@ class CreateOrListAddressView(LoginRequiredMixin,View):
             address.save()
             return HttpResponseRedirect(reverse('profile:address'))
         return render(request,self.template_name,{'addresses':self.get_queryset(),'form':form})
+
+
+class DeleteAddress(LoginRequiredMixin,DeleteView):
+    model=Address
+    template_name='profile/delete_confirm.html'
+    success_url=reverse_lazy('profile:address')
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        self.object.delete()
+        last_object=Address.objects.filter(
+            user=request.user,
+        ).last()    
+        if last_object:
+            last_object.active_address=True
+            last_object.save()
+        return HttpResponseRedirect(success_url)
