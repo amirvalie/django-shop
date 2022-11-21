@@ -36,3 +36,13 @@ def cart_remove(request, product_id):
     cart.remove(product)
     return redirect('cart:cart_detail')
 
+def cart_detail(request):
+    cart = Cart(request)
+    for item in cart:
+        if item['color'] is not None:
+            try:
+                color=item['product'].colors.get(color__name=item['color'])
+                item['code']=color.color.code
+            except:
+                item['code']=None
+    return render(request, 'cart/cart_detail.html', {'cart': cart})
