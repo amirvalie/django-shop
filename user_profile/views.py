@@ -49,3 +49,31 @@ class OrderListView(LoginRequiredMixin,ListView):
                 issue_tracking=self.request.GET.get('issue_tracking',None),
             )
         return orderitems
+
+class CreateOrListAddressView(LoginRequiredMixin,View):
+    template_name='profile/address.html'
+    form_class=AddressForm
+
+    def get_queryset(self):
+        addresses=Address.objects.filter(
+            user=self.request.user,
+        ).order_by('-id')
+        return addresses
+
+    def get(self,request, *args, **kwargs):
+        form=self.form_class()
+        return render(request,self.template_name,{'addresses':self.get_queryset(),'form':form})
+
+    def post(self,request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            if self.get_queryset().count() >= 1:
+                curent_active_address=self.get_queryset().get(active_address=True)
+                curent_active_address.active_address=False
+                curent_active_address.save()
+            address=form.save(commit=False)
+            address.user=request.user
+            address.active_address=True
+            address.save()
+            return HttpResponseRedirect(reverse('profile:address'))
+        return render(request,self.template_name,{'addresses':self.get_queryset(),'form':form})
