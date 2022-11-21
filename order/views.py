@@ -70,3 +70,40 @@ class ActiveAddressView(View):
         return redirect('orders:checkout')
 
 
+class CreateOrder(LoginRequiredMixin,View):
+    def get_queryset(self):
+        queryset=DatePikcer.objects.filter(
+            date__gte=timezone.now().date(),
+            date__lte=timezone.now().date() + datetime.timedelta(days=5),
+            active=True,
+        )
+        return queryset
+
+    def post(self,request,*args,**kwargs):
+        choices=[
+            (f'{obj_id}',f'datepicker_{obj_id}') 
+            for obj_id in self.get_queryset().values_list('id',flat=True)
+        ]
+        form=ChoicesForm(data=request.POST,obj_ids=choices)
+        if form.is_valid():
+            cart=Cart(request)
+            active_address=Address.objects.get(user=request.user,active_address=True)
+            get_datepicker=self.get_queryset().get(id=form.cleaned_data['choice_field'])
+            order_obj = Order.objects.create(
+                user=request.user,
+                address=active_address,
+                status='unpaid',
+                datepikcer=get_datepicker,
+            )
+            for item in cart:
+                OrderItem.objects.create(
+                    order=order_obj,
+                    product=item['product'],
+                    price=item['price'],
+                    color=item['color'] if item['color'] is not None else None,
+                    size=item['size'] if item['size'] is not None else None,
+                )            
+            cart.clear()
+            return redirect('profile:orders')
+        else:
+            return redirect('orders:checkout')
