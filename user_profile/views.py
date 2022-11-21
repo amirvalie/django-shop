@@ -100,4 +100,13 @@ class UpdateAddressView(LoginRequiredMixin,UpdateView):
     model=Address
     form_class=AddressForm
     template_name='profile/update_address.html'
-    success_url=reverse_lazy('profile:address')View
+    success_url=reverse_lazy('profile:address')
+
+
+class UserInfo(LoginRequiredMixin,UpdateView):
+    form_class=UserForm
+    template_name='profile/user_info.html'
+    success_url=reverse_lazy('profile:user_info')
+
+    def get_object(self):
+        return get_object_or_404(User,pk=self.request.user.pk)
