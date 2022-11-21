@@ -12,6 +12,7 @@ from coupon.forms import CouponApplyForm
 from django.utils import timezone
 import datetime
 from django.core.exceptions import BadRequest
+from .forms import OrderCreateForm,ChoicesForm
 
 class SelectAddressView(LoginRequiredMixin,ProductExistMixin,View):
     template_name='order/address_list.html'
@@ -39,3 +40,33 @@ class SelectAddressView(LoginRequiredMixin,ProductExistMixin,View):
             active=True,
         )
         return render(request,self.template_name,context)
+
+
+
+class ActiveAddressView(View):
+    def get_queryset(self):
+        queryset=Address.objects.filter(
+            user=self.request.user,
+        )
+        return queryset
+        
+    def post(self,request,*args,**kwargs):
+        active_address=self.get_queryset().filter(
+            active_address=True
+        )[0]
+        choices=[
+            (f'{obj_id}',f'address_{obj_id}') 
+            for obj_id in self.get_queryset().values_list('id',flat=True)
+        ]
+        form=ChoicesForm(data=request.POST,obj_ids=choices)
+        if form.is_valid(): 
+            instance=form.cleaned_data['choice_field']
+            address=Address.objects.get(id=instance)
+            address.active_address=True
+            active_address.active_address=False
+            active_address.save()
+            address.save()
+
+        return redirect('orders:checkout')
+
+
