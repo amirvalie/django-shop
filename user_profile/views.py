@@ -103,10 +103,22 @@ class UpdateAddressView(LoginRequiredMixin,UpdateView):
     success_url=reverse_lazy('profile:address')
 
 
-class UserInfo(LoginRequiredMixin,UpdateView):
+class UserInfoView(LoginRequiredMixin,UpdateView):
     form_class=UserForm
     template_name='profile/user_info.html'
     success_url=reverse_lazy('profile:user_info')
 
     def get_object(self):
         return get_object_or_404(User,pk=self.request.user.pk)
+
+
+class PasswordChangeView(PasswordChangeView):
+    template_name='profile/password_change.html'
+    form_class=[PasswordChangeForm,SetPasswordForm]
+    success_url = reverse_lazy('profile:user_info')
+
+    def get_form_class(self):
+        """Return the form class to use."""
+        if self.request.user.password:
+            return self.form_class[0]
+        return self.form_class[1]
