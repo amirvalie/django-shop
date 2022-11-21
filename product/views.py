@@ -79,3 +79,12 @@ class ProductsInCategory(ListView):
         slug=self.kwargs.get('slug')
         category=get_object_or_404(MainCategory.objects.category_publish(),slug=slug)
         return category.products.product_publish()
+
+class SpecialOffers(ListView):
+    template_name='product/list.html'
+    context_object_name='products'
+    paginate_by=10
+    def get_queryset(self):
+        slug=self.kwargs.get('slug')
+        category=get_object_or_404(Banner.objects.category_publish(),slug=slug)
+        return category.products.product_publish()
