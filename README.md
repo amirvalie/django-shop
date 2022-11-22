@@ -27,7 +27,7 @@ Django store is a multi-product store that includes profile and login with phone
 ### Built With
 
 This project is built with Python/Django
-* [![Django][Django.io]][Django-ur]
+* [![Django][Django.io]][Django-url]
 * [![Python][Python.io]][Python-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
