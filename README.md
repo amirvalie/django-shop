@@ -29,7 +29,7 @@ Django store is a multi-product store that includes profile and login with phone
 This project is built with Python/Django
 
 * [![Python][Python.io]][Python-url]
-* [![Django[Django.io]][Django-ur]]
+* [![Django][Django.io]][Django-ur]]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
 <!-- GETTING STARTED -->
@@ -68,8 +68,6 @@ _Below is an example of how you can instruct your audience on installing and set
 AmirValie  - hosseinvalie@gmail.com
 
 Project Link: [https://github.com/amirvalie/django-shop.git](https://github.com/amirvalie/django-shop.git)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
