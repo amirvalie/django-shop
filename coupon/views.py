@@ -24,6 +24,6 @@ def coupon_apply(request):
                 request.session['coupon_id'] = coupon.id
             except Coupon.DoesNotExist:
                 request.session['coupon_id'] = None
-        return redirect('orders:list_address')
+        return redirect('orders:checkout')
     else:
         return HttpResponse("Invalid request")
