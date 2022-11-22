@@ -94,3 +94,12 @@ class DiscountedProduct(ListView):
     paginate_by=4
     queryset=Product.objects.discounted_products()
 
+
+
+class BestSellingProduct(ListView):
+    template_name='product/best_selling_products.html'
+    context_object_name='products'
+    paginate_by=4
+    queryset=Product.objects.product_sales().order_by('-max_sales_number')[:16]
+
+
