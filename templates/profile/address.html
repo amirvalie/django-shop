@@ -1,0 +1,62 @@
+{% extends 'profile/base.html'%}
+{% block title_section %}آدرس ها{% endblock title_section %}
+{% block body %}
+  <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- /.col -->
+          <div class="col-md">
+            <div class="card">
+              <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">آدرس ها</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">اضافه کردن آدرس</a></li>
+                </ul>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content">
+                  <div class="active tab-pane" id="activity">
+                    <!-- Post -->
+                    {% for address in addresses %}
+                     <div class="post">
+                        <h4>{{address.address}}</h3>
+                        <ul  style="list-style-type:none;padding:0%;">
+                          <li><i class="pb-3 fa fa-user"></i>  {{address.user.first_name}}</li>
+                          <li><i class="pb-3 fa fa-city"></i>  {{address.city}} </li>
+                          <li><i class="pb-3 fa fa-phone"></i>  {{address.phone_number}} </li>
+                          <li><i class="pb-3 fa fa-envelope"></i>  {{address.post_code}} </li>
+                        </ul>
+                        <div class="button-position">
+                          <form action="{% url 'profile:update_address' address.pk %}">
+                            <button type="submit" class="btn btn-block btn-primary">تغییر</button>
+                          </form>
+                        </div>
+                        <div class="button-position">
+                          <form action="{% url 'profile:delete_address' address.pk %}">
+                            <button type="submit" class="btn btn-block btn-danger">حذف</button>
+                          </form>
+                        </div>
+                      </div>
+                    {% empty %}
+                    <p>شما هیچ آدرسی ندارید.</p>
+                    {% endfor %}
+                  </div>
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="settings">
+                  {% include 'profile/address_form.html' %}
+                  </div>
+                  <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+              </div><!-- /.card-body -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  {% endblock body  %}

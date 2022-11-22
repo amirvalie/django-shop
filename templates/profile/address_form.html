@@ -1,0 +1,54 @@
+{% load widget_tweaks %}
+<form class="form-horizontal" method="POST">
+    {%csrf_token%}
+    <div class="form-group">
+      <label for="id_state" class="col-sm-2 control-label">استان</label>
+      <div class="col-sm-10">
+        {{form.state|add_class:"form-control"}}
+      </div>
+      <div>
+        {{ form.state.errors|add_class:"form-control"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="id_city"  class="col-sm-2 control-label">شهر</label>
+      <div class="col-sm-10">
+        {{form.city|add_class:"form-control"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="id_address" class="col-sm-2 control-label">ادرس</label>
+      <div class="col-sm-10">
+        {{form.address|add_class:"form-control"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="id_post_code" class="col-sm-2 control-label">کد پستی</label>
+      <div class="col-sm-10">
+        {{form.post_code|add_class:"form-control"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="id_plaque" class="col-sm-2 control-label">پلاک</label>
+      <div class="col-sm-10">
+        {{form.plaque|add_class:"form-control"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="id_unit" class="col-sm-2 control-label">واحد</label>
+      <div class="col-sm-10">
+        {{form.unit|add_class:"form-control"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="id_phone_number" class="col-sm-2 control-label">شماره تلفن</label>
+      <div class="col-sm-10">
+        {{form.phone_number|add_class:"form-control"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-block btn-primary btn-change">تایید</button>
+      </div>
+    </div>
+</form>

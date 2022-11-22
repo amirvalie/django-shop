@@ -1,0 +1,6 @@
+<div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
+    {% for category in category.children.category_publish %}
+        <a href="{{category.get_absolute_url}}" class="dropdown-item">{{category.title}}</a>
+    {% endfor %}
+</div>
+

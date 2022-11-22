@@ -1,0 +1,72 @@
+{% load static %}
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar bg-light text-dark elevation-4">
+    <!-- Brand Logo -->
+    <a href="" class="text-decoration-none mr-2">
+      <span class="h2 text-uppercase text-light bg-dark px-2">Multi</span>
+      <span class="h2  text-uppercase text-dark bg-light px-2 ml-n1">Shop</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3  d-flex">
+        <div class="image">
+          <img src="{% static 'profile_panel/assets/img/fd4840b2.svg' %}" class="img-circle elevation-2 mr-2" alt="User Image">
+        </div>
+        <div class="info">
+          <p style="display:inline;">{{request.user.first_name}} {{request.user.last_name}}</p>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            <a href="{% url 'profile:dashboard' %}" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                داشبورد
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'profile:orders' %}" class="nav-link">
+              <i class="nav-icon fas fa-shopping-basket"></i>
+              <p>
+                سفارشات
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'profile:address' %}" class="nav-link">
+              <i class="nav-icon fa fa-address-card"></i>
+              <p>
+                ادرس ها
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'profile:user_info' %}" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                حساب کاربری
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="pages/widgets.html" class="nav-link">
+              <i class="nav-icon fa fa-comments"></i>
+              <p>
+                پیام ها
+              </p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

@@ -1,0 +1,16 @@
+.custome-border{
+    border-radius: 20px;
+}
+
+.location-icone{
+    display: inline-block;
+
+}
+.address-title{
+    display: inline-block;
+
+}
+.change-address{
+    display: inline-block;
+    margin-right: 48%;
+}

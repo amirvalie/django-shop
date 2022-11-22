@@ -1,0 +1,52 @@
+    <nav class="navbar navbar-expand-md navbar-light bg-dark border-bottom">
+        <div class="container-fluid">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <a href="{% url 'cart:cart_detail'%}"><i class="nav-item fas fa-shopping-cart fa-2x text-white"></i></a>           
+                    <div class="dropdown">
+                        <a class="fas fa-user fa-2x dropdown-toggle text-white" href="#" role="button" style="text-decoration: none;margin: 0 20px 0 20px;" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        {% if request.user.is_authenticated %}
+                          <li><a class="dropdown-item" href="{% url 'account:profile' %}">پروفایل</a></li>
+                          <li><a class="dropdown-item" href="{% url 'logout' %}?next={{request.path}}">خروج</a></li>
+                        {% else %}
+                          <li><a class="dropdown-item" href="{% url 'phone_login:login' %}?next={{request.path}}">ورود</a></li>
+                        {% endif %}
+                        </ul>
+                    </div>
+
+                    <form action="{% url 'product:search_result'%}" class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="جستجو" aria-label="Search" name='q'>
+                        <button class="btn btn-outline-success" type="submit">جستجو</button>
+                    </form>    
+                </ul>
+
+                <li class="nav-item dropdown navbar-nav me-right-auto mb-2 mb-md-0" id="myDropdown" style="text-align: right;direction:rtl;">
+                    <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown"> دسته بندی </a>
+                    <ul class="dropdown-menu">
+                        {% for item in categories  %}
+                            {% if item.parent == None%}
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'product:category_list' item.slug  %}"> 
+                                        {{item.title}}
+                                    </a>
+                                    {% if item.children.all %}
+                                        {% include 'product/partials/navbar_nested.html'%}
+                                    {% endif %}
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </li>
+               <a href="{% url 'product:home'%}"><i class="fa-home fa text-white" aria-hidden="true" style="padding-right:10px; padding-left:18px;"></i></a>
+            </div>
+        </div>
+    </nav>

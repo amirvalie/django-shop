@@ -1,0 +1,51 @@
+{% extends 'profile/base.html'%}
+{% load widget_tweaks %}
+{% block title_section %}پروفایل{% endblock title_section %}
+{% block body %}
+<section class="content">
+    <div class="container-fluid">
+      <div class="card card-info">
+          <div class="card-header">
+            <h3 class="text-left">اطلاعات کاربر</h3>
+          </div>
+          <div class="card-body">
+              <form class="form-horizontal" method="POST">
+                  {%csrf_token%}
+                  <div class="form-group profile-display">
+                    <label for="id_state" class="col-10 control-label">نام</label>
+                    <div class="col-10">
+                      {{form.first_name|add_class:"form-control"}}
+                    </div>
+                  </div>
+                  <div class="form-group profile-display">
+                    <label for="id_city"  class="col-10 control-label">نام خانوادگی</label>
+                    <div class="col-10">
+                      {{form.last_name|add_class:"form-control"}}
+                    </div>
+                  </div>
+                  <div class="form-group profile-display">
+                    <label for="id_address" class="col-10 control-label">شماره تلفن</label>
+                    <div class="col-10">
+                      {{form.phone|add_class:"form-control"}}
+                    </div>
+                  </div>
+                  <div class="form-group profile-display">
+                    <label for="id_post_code" class="col-10 control-label">ایمیل</label>
+                    <div class="col-10">
+                      {{form.email|add_class:"form-control"}}
+                    </div>
+                  </div>
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <p><a href="{% url 'profile:change_password' %}" class="link-dark">تغییر پسورد</a></p>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-block btn-primary btn-change">تایید</button>
+                    </div>
+                  </div>
+              </form>
+          </div>
+      </div>
+    </div>
+</section>
+{% endblock body%}

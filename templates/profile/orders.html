@@ -1,0 +1,75 @@
+{% extends 'profile/base.html'%}
+{% block title_section %}سفارشات{% endblock title_section %}
+{% block body %}
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <!-- /.row -->
+    <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-tools">
+            <form action="">
+            <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="text" name="issue_tracking" class="form-control float-right" placeholder="شماره پیگیری">
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+          </form>
+          </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body table-responsive p-0" style="height: 300px;">
+          <table class="table table-head-fixed">
+            <thead>
+              <tr>
+                <th>محصول</th>
+                <th>عنوان محصول</th>
+                <th>گیرنده محصول</th>
+                <th>شماره تلفن گیرنده</th>
+                <th>زمان رسیدن کالا</th>
+                <th>شماره پیگیری</th>
+                <th>قیمت کل</th>
+                <th>  وضعیت سفارش</button></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for orderitem in orderitems %}
+                <tr>
+                  <td><a href="{% url 'product:product_detail' orderitem.product.slug%}"><img src="{{orderitem.product.thumbnail.url}}" alt="" style="width: 70px;"></a></td>
+                  <td>{{orderitem.product.title}}</td>
+                  <td>{{orderitem.order.user.first_name}}</td>
+                  <td>{{orderitem.order.user.phone}}</td>
+                  <td>23-10-1401</td>
+                  <td>{{orderitem.issue_tracking}}</td>
+                  <td>14000000 تومان</td>
+                  <td>
+                    <button 
+                      {% if orderitem.order.status == 'sending' %}
+                        class="btn btn-block btn-warning"
+                      {% elif orderitem.order.status == 'delivered'%}
+                        class="btn btn-block btn-success"
+                      {% elif orderitem.order.status == 'failed' or  orderitem.order.status == 'returned' or orderitem.order.status == 'unpaid'%}
+                        class="btn btn-block btn-danger"
+                      {% endif %}
+                      >
+                      {{orderitem.order.get_status_display}}
+                    </button>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
+  <!-- /.row -->
+  </div>
+</section>
+
+{% endblock body%}

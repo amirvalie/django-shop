@@ -1,0 +1,72 @@
+{% extends 'profile/base.html'%}
+{% block title_section %}داشبورد{% endblock title_section %}
+{% block body %}
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+        <div class="col-md col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+            <div class="inner">
+                <h2>{{sending}}</h2>
+                <p>سفارشات جاری</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-bag"></i>
+            </div>
+            <form action="{% url 'profile:orders' %}">
+                <input type="hidden" value="sending" name='q'>
+                <button type="submit" class="bnt btn-dark">
+                    اطلاعات بیشتر
+                    <i class="fas fa-arrow-circle-left"></i>
+                </button>
+            </form>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-md col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+            <div class="inner">
+                <h2>{{delivered}}</h2>
+                <p>سفارشات تحویل داده شده</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-bag"></i>
+            </div>
+                <form action="{% url 'profile:orders' %}" >
+                    <input type="hidden" value="delivered" name='q'>
+                    <button type="submit" class="bnt btn-dark">
+                        اطلاعات بیشتر
+                        <i class="fas fa-arrow-circle-left"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-md col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+            <div class="inner">
+                <h2>{{returned}}</h2>
+                <p>سفارشات مرجوع شده</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-bag"></i>
+            </div>
+                <form action="{% url 'profile:orders' %}" >
+                    <input type="hidden" value="returned" name="q">
+                    <button type="submit" class="bnt btn-dark">
+                        اطلاعات بیشتر
+                        <i class="fas fa-arrow-circle-left"></i>
+                    </button>
+                </form>
+        </div>
+        </div>
+        <!-- ./col -->
+    </div><!-- /.container-fluid -->
+</section>
+    <!-- /.content -->
+{% endblock body%}

@@ -1,0 +1,76 @@
+{% extends 'product/base.html' %}
+{% load template_tags %}
+
+{%block title%}{%endblock title%}
+{% block content %}
+<!-- Shop Start -->
+<div class="container-fluid">
+        <!-- Shop Product Start -->
+            <div class="row pb-3">
+                {% for product in products%}
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                    <div class="product-item bg-light-item mb-4 custome-border">
+                        <div class="product-img position-relative overflow-hidden">
+                            <a href="{{product.get_absolute_url}}">
+                                <img class="img-fluid w-100" src="{{product.thumbnail.url}}" alt="">
+                            </a>
+                        </div>
+                        <div class="text-center py-4">
+                            <a class="h5 text-decoration-none text-truncate" href="{{product.get_absolute_url}}">{{product.title|truncatewords:6}}</a>
+                            <div class="d-flex align-items-center justify-content-center mt-3">
+                            {% if product.valid_discount %}
+                            <h6 class="text-muted ml-2"><del>{{product.price|price_format}}</del></h6>
+                            <h5>{{product.cal_discount|price_format}}</h5>
+                            {% else %}
+                            <h5>{{product.price|price_format}}</h5>
+                            {% endif %}
+                            </div>
+                            <div class="d-flex mb-1 mt-3 justify-content-around align-items-center">
+                                <div>
+                                    {% if product.available_product and product.available  %}
+                                        <span style="font-size:15px;">محصول در انبار موجود است</span>
+                                    {% else %}
+                                        <span class="text-danger footer">محصول در انبار موجود نیست</span>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    {% if not product.id|product_rates == none %}
+                                    <span>{{product.id|product_rates}}</span><small class="fa fa-star text-star mr-1"></small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% if page_obj.has_other_pages %}
+                    <div class="col-12">
+                        <nav>
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">قبل</span></a></li>
+                            {% else %}
+                            <li class="page-item disabled"><a class="page-link" href="#">قبل</span></a></li>
+                            {% endif %}
+                            {% for i in paginator.page_range %}
+                                {% if page_obj.number == i %}
+                                <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{i}}</a></li>
+                                {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{i}}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">بعد</a></li>
+                            {% else %}
+                            <li class="page-item disabled"><a class="page-link" href="#">بعد</a></li>
+                            {% endif%}
+                        </ul>
+                        </nav>
+                    </div>
+                {% endif %}
+        </div>
+        <!-- Shop Product End -->
+</div>
+<!-- Shop End -->
+
+{% endblock content%}
