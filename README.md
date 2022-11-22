@@ -2,8 +2,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://www.djangoproject.com/start/">
+    <img src="https://static.djangoproject.com/img/logos/django-logo-positive.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">DJANGO-SHOP</h3>
@@ -14,7 +14,6 @@
     <br />
     <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
     ·
-    ·
     <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
   </p>
 </div>
@@ -22,22 +21,16 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+
 Django store is a multi-product store that includes profile and login with phone number
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 ### Built With
 
 This project is built with Python/Django
 
 * [![Python][Python.io]][Python-url]
-* [![Django[Dajngo.io]][Django-ur]]
+* [![Django[Django.io]][Django-ur]]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -68,11 +61,6 @@ _Below is an example of how you can instruct your audience on installing and set
    python manage.py migrate
    ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-
 
 <!-- CONTACT -->
 ## Contact
@@ -86,7 +74,7 @@ Project Link: [https://github.com/amirvalie/django-shop.git](https://github.com/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [product-screenshot]: images/screenshot.png
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-Bootstrap%20framework-blueviolet
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
