@@ -38,11 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    # 'django_comments',
+    'django_comments',
     # apps
     'product.apps.ProductConfig',
-    'django_phone_login.apps.DjangoPhoneLoginConfig'
-    
+    'django_phone_login.apps.DjangoPhoneLoginConfig',
+    'coupon.apps.CouponConfig',
+    'order.apps.OrderConfig',
+    'product.apps.ProductConfig',
+    'rate.apps.RateConfig',
+    'user_profile.apps.UserProfileConfig',
+    'widget_tweaks',
+    'crispy_forms',
 ]
 
 SITE_ID=1
@@ -55,7 +61,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_phone_login.middleware.IpAddressMiddleware',
 ]
+
+
+AUTHENTICATION_BACKENDS = [
+    'django_phone_login.backend.phone_backend.PhoneBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+
 
 ROOT_URLCONF = 'conf.urls'
 

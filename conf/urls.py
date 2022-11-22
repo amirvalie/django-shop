@@ -20,5 +20,13 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
+    path('account/',include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
+    path('profile/',include('user_profile.urls')),
+    path('',include('product.urls')),
+    path('cart/',include('cart.urls')),
+    path('order/',include('order.urls')),
+    path('coupons/', include('coupon.urls')),
+    path('user/', include('django_phone_login.urls')),
+    path('comments/', include('django_comments.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
