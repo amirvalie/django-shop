@@ -103,3 +103,11 @@ class BestSellingProduct(ListView):
     queryset=Product.objects.product_sales().order_by('-max_sales_number')[:16]
 
 
+class BrandProduct(ListView):
+    template_name='product/brand_landing.html'
+    context_object_name='products'
+    paginate_by=4
+    def get_queryset(self):
+        brand_name=self.kwargs.get('brand_name')
+        brand=get_object_or_404(Brand,brand_name=brand_name)
+        return brand.products.product_publish()
