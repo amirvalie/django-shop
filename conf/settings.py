@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'django_phone_login.apps.DjangoPhoneLoginConfig',
     'coupon.apps.CouponConfig',
     'order.apps.OrderConfig',
-    'product.apps.ProductConfig',
     'rate.apps.RateConfig',
     'user_profile.apps.UserProfileConfig',
     'widget_tweaks',
