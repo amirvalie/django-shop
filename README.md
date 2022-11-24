@@ -3,7 +3,7 @@
 <br />
 <div align="center">
   <a href="https://www.djangoproject.com/start/">
-    <img src="https://static.djangoproject.com/img/logos/django-logo-positive.png" alt="Logo" width="180" height="150">
+    <img src="https://static.djangoproject.com/img/logos/django-logo-positive.png" alt="Logo" width="500" height="200">
   </a>
 
   <h3 align="center">DJANGO-SHOP</h3>
