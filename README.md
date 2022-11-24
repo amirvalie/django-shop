@@ -3,7 +3,7 @@
 <br />
 <div align="center">
   <a href="https://www.djangoproject.com/start/">
-    <img src="https://static.djangoproject.com/img/logos/django-logo-positive.png" alt="Logo" width="80" height="80">
+    <img src="https://static.djangoproject.com/img/logos/django-logo-positive.png" alt="Logo" width="180" height="150">
   </a>
 
   <h3 align="center">DJANGO-SHOP</h3>
@@ -64,7 +64,7 @@ _Below is an example of how you can instruct your audience on installing and set
 <!-- CONTACT -->
 ## Contact
 
-AmirValie  - hosseinvalie@gmail.com
+Amir Valie  - hosseinvalie@gmail.com
 
 Project Link: [https://github.com/amirvalie/django-shop.git](https://github.com/amirvalie/django-shop.git)
 
