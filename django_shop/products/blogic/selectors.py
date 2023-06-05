@@ -64,3 +64,6 @@ def special_offers(slug:str) ->Iterable[Product]:
 
 def discounted_products() ->Iterable[Product]:
     return Product.objects.discounted_products()
+
+def best_selling_products() ->Iterable[Product]:
+    return Product.objects.product_sales()
