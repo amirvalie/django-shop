@@ -1,3 +1,6 @@
+from django.db.models import Q
+from django.shortcuts import get_object_or_404
+
 from ..models import (
     Product,
     IpAddress,
@@ -31,3 +34,19 @@ def special_offer() -> Iterable[Banner]:
 
 def brand_list() -> Iterable[Brand]:
     return Brand.objects.all()
+
+
+def get_product(slug: str) -> Product:
+    return get_object_or_404(Product, slug=slug)
+
+
+def related_product_list(product: Product) -> Iterable[Product]:
+    return Product.objects.filter(
+        title__icontains=product.title[:5]
+    ).exclude(id=product.id)
+
+
+def product_search(query: str) -> Iterable[Product]:
+    return Product.objects.filter(Q(title__icontain=query) |
+                                  Q(slug__icontain=query)
+                                  )
