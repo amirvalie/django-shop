@@ -20,6 +20,7 @@ from .blogic.selectors import (
     category_products,
     special_offers,
     discounted_products,
+    best_selling_products,
 )
 from .blogic.services import (
     add_user_to_product_visits
@@ -106,7 +107,7 @@ class BestSellingProduct(ListView):
     template_name = 'product/best_selling_products.html'
     context_object_name = 'products'
     paginate_by = 4
-    queryset = Product.objects.product_sales().order_by('-max_sales_number')[:16]
+    queryset = best_selling_products()[:20]
 
 
 class BrandProduct(ListView):
