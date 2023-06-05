@@ -14,10 +14,12 @@ def category_list() -> Iterable[Category]:
 
 def get_category(slug:str) -> Category:
     return get_object_or_404(
-        Category,slug=slug
+        Category,
+        slug=slug
     )
 
 def get_banner(slug:str) -> Banner:
     return get_object_or_404(
-        Banner(),slug=slug
-    )
+        Banner(),
+        slug=slug
+    )   
