@@ -19,6 +19,7 @@ from .blogic.selectors import (
     product_search,
     category_products,
     special_offers,
+    discounted_products,
 )
 from .blogic.services import (
     add_user_to_product_visits
@@ -98,7 +99,7 @@ class DiscountedProduct(ListView):
     template_name = 'product/discounted_products.html'
     context_object_name = 'products'
     paginate_by = 4
-    queryset = Product.objects.discounted_products()
+    queryset = discounted_products()
 
 
 class BestSellingProduct(ListView):
