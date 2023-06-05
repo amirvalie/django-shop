@@ -21,6 +21,7 @@ from .blogic.selectors import (
     special_offers,
     discounted_products,
     best_selling_products,
+    brand_products,
 )
 from .blogic.services import (
     add_user_to_product_visits
@@ -72,8 +73,9 @@ class ProductSearch(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        query = self.request.GET.get('q', "None")
-        object_list = product_search(query=query)
+        object_list = product_search(
+            query=self.request.GET.get('q', "None")
+        )
         return object_list
 
 
@@ -83,8 +85,7 @@ class ProductsInCategory(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        slug = self.kwargs.get('slug')
-        return category_products(slug)
+        return category_products(self.kwargs.get('slug'))
 
 
 class SpecialOffer(ListView):
@@ -93,8 +94,7 @@ class SpecialOffer(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        slug = self.kwargs.get('slug')
-        return special_offers(slug)
+        return special_offers(self.kwargs.get('slug'))
 
 class DiscountedProduct(ListView):
     template_name = 'product/discounted_products.html'
@@ -114,8 +114,7 @@ class BrandProduct(ListView):
     template_name = 'product/brand_landing.html'
     context_object_name = 'products'
     paginate_by = 4
-
+    
     def get_queryset(self):
-        brand_name = self.kwargs.get('brand_name')
-        brand = get_object_or_404(Brand, brand_name=brand_name)
-        return brand.products.product_publish()
+        queryset=brand_products(self.kwargs.get('slug'))
+
