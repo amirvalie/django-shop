@@ -12,11 +12,13 @@ from .blogic.selectors import (
     product_list,
     most_visited_products,
     session_discount,
-    special_offer,
+    special_offer_category,
     brand_list,
     get_product,
     related_product_list,
     product_search,
+    category_products,
+    special_offers,
 )
 from .blogic.services import (
     add_user_to_product_visits
@@ -37,7 +39,7 @@ class Home(ListView):
         context['most_visit_product'] = most_visited_products()[:16]
         context['categories'] = category_list()
         context['season_discounts'] = session_discount()[:2]
-        context['special_offers'] = special_offer()[:10]
+        context['special_offers'] = special_offer_category()[:10]
         context['brands'] = brand_list()[10]
         return context
 
@@ -80,8 +82,7 @@ class ProductsInCategory(ListView):
 
     def get_queryset(self):
         slug = self.kwargs.get('slug')
-        category = get_object_or_404(MainCategory.objects.category_publish(), slug=slug)
-        return category.products_for_category.product_publish()
+        return category_products(slug)
 
 
 class SpecialOffer(ListView):
@@ -91,9 +92,7 @@ class SpecialOffer(ListView):
 
     def get_queryset(self):
         slug = self.kwargs.get('slug')
-        category = get_object_or_404(Banner.objects.category_publish(), slug=slug)
-        return category.products.product_publish()
-
+        return special_offers(slug)
 
 class DiscountedProduct(ListView):
     template_name = 'product/discounted_products.html'
