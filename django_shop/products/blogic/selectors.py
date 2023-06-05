@@ -53,17 +53,31 @@ def product_search(query: str) -> Iterable[Product]:
                                   )
 
 
-def category_products(slug:str) ->Iterable[Product]:
+def category_products(slug:str) -> Iterable[Product]:
     category=get_category(slug)
     return category.category_products.product_publish()
 
 
-def special_offers(slug:str) ->Iterable[Product]:
+def special_offers(slug:str) -> Iterable[Product]:
     banner=get_banner(slug)
     return banner.banner_products.product_publish()
 
-def discounted_products() ->Iterable[Product]:
+
+def discounted_products() -> Iterable[Product]:
     return Product.objects.discounted_products()
 
-def best_selling_products() ->Iterable[Product]:
-    return Product.objects.product_sales()
+
+def best_selling_products() -> Iterable[Product]:
+    return Product.objects.product_sales().order_by('-max_sales_number')
+
+
+def get_brand(slug:str) -> Brand:
+    return get_object_or_404(Brand,slug=slug)
+
+
+def brand_products(slug:str) -> Iterable[Product]:
+    brand=get_brand(slug)
+    return brand.products.product_publish()
+
+
+
