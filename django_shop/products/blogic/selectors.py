@@ -7,6 +7,7 @@ from ..models import (
     Brand,
     Banner,
 )
+from django_shop.categories.blogic.selectors import get_category,get_banner
 from typing import Iterable
 
 
@@ -50,3 +51,13 @@ def product_search(query: str) -> Iterable[Product]:
     return Product.objects.filter(Q(title__icontain=query) |
                                   Q(slug__icontain=query)
                                   )
+
+
+def category_products(slug:str) ->Iterable[Product]:
+    category=get_category(slug)
+    return category.category_products.product_publish()
+
+
+def special_offer(slug:str) ->Iterable[Product]:
+    banner=get_banner(slug)
+    return banner.banner_products.product_publish()
