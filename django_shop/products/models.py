@@ -148,7 +148,7 @@ class Product(models.Model):
         unique=True,
         verbose_name='ادرس محصول',
     )
-    main_category = models.ManyToManyField(
+    category = models.ManyToManyField(
         Category,
         verbose_name='دسته ها',
         related_name='category_products',
