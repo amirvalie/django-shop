@@ -26,7 +26,7 @@ def session_discount() -> Iterable[Banner]:
     )
 
 
-def special_offer() -> Iterable[Banner]:
+def special_offer_category() -> Iterable[Banner]:
     return Banner.objects.filter(
         status='p',
         type_category='special_offer'
@@ -58,6 +58,6 @@ def category_products(slug:str) ->Iterable[Product]:
     return category.category_products.product_publish()
 
 
-def special_offer(slug:str) ->Iterable[Product]:
+def special_offers(slug:str) ->Iterable[Product]:
     banner=get_banner(slug)
     return banner.banner_products.product_publish()
