@@ -151,12 +151,12 @@ class Product(models.Model):
     main_category = models.ManyToManyField(
         Category,
         verbose_name='دسته ها',
-        related_name='products_for_category',
+        related_name='category_products',
     )
     banner = models.ManyToManyField(
         Banner,
         verbose_name='بنرها',
-        related_name='products_for_banner',
+        related_name='banner_products',
         blank=True,
     )
     brand = models.ForeignKey(
