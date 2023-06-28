@@ -16,7 +16,7 @@ from django_filters import rest_framework as filters
 class ProudctFilter(filters.FilterSet):
     class Meta:
         model = Product
-        field = ['title']
+        fields = ['title']
 
 
 def product_list(*, filters=None) -> Iterable[Product]:
