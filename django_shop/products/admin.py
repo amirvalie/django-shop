@@ -36,7 +36,7 @@ class SpecificationAdmin(admin.TabularInline):
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['title', 'status', 'cal_discount']
-    list_filter = ['slug', 'main_category', ]
+    list_filter = ['slug', ]
     search_fields = ['category', 'slug']
     ordering = ['-updated']
     inlines = [SpecificationAdmin, ProductImageAdmin, ProductColorAdmin, ProductSizeAdmin]
@@ -53,12 +53,9 @@ class BrandAdmin(admin.ModelAdmin):
     list_display = ["display_logo"]
 
 
-
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Color, ColorAdmin)
 admin.site.register(Brand, BrandAdmin)
 admin.site.register(Size)
 admin.site.register(DiscountProduct)
 admin.site.register(IpAddress)
-
-
