@@ -16,7 +16,7 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 LOCAL_APPS = [
     'django_shop.core.apps.CoreConfig',
     'django_shop.common.apps.CommonConfig',
-    'django_shop.users.apps.UsersConfig',
+    'django_shop.django_phone_login.apps.DjangoPhoneLoginConfig',
     'django_shop.authentication.apps.AuthenticationConfig',
     'django_shop.products.apps.ProductsConfig',
     'django_shop.categories.apps.CategoriesConfig',
@@ -58,6 +58,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
+
+AUTHENTICATION_BACKENDS = [
+    'django_shop.django_phone_login.backend.phone_backend.PhoneBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 TEMPLATES = [
     {
@@ -122,7 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-AUTH_USER_MODEL = 'users.BaseUser'
+AUTH_USER_MODEL = 'django_phone_login.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/

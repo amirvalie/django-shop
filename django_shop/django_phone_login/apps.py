@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class UsersConfig(AppConfig):
+class DjangoPhoneLoginConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'django_shop.users'
+    name = 'django_shop.django_phone_login'
