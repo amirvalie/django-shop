@@ -20,6 +20,7 @@ LOCAL_APPS = [
     'django_shop.authentication.apps.AuthenticationConfig',
     'django_shop.products.apps.ProductsConfig',
     'django_shop.categories.apps.CategoriesConfig',
+    'django_shop.coupon.apps.CouponConfig',
 ]
 
 THIRD_PARTY_APPS = [
