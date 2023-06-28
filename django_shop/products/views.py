@@ -1,7 +1,6 @@
 from django.shortcuts import get_object_or_404, render, HttpResponse
 from django.views.generic import (ListView, DetailView)
 from django.db.models import Q
-from cart.forms import CartAddProductFrom
 from .models import (
     Product,
     Brand,
@@ -43,7 +42,7 @@ class Home(ListView):
         context['categories'] = category_list()
         context['season_discounts'] = session_discount()[:2]
         context['special_offers'] = special_offer_category()[:10]
-        context['brands'] = brand_list()[10]
+        context['brands'] = brand_list()[:10]
         return context
 
 
@@ -79,7 +78,7 @@ class ProductSearch(ListView):
         return object_list
 
 
-class ProductsInCategory(ListView):
+class ProductsRelatedCategory(ListView):
     template_name = 'product/list.html'
     context_object_name = 'products'
     paginate_by = 10
