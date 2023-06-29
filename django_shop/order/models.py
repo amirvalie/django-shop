@@ -2,29 +2,27 @@ from django.db import models
 
 # Create your models here.
 from django.db import models
-from product.models import Product
+from ..products.models import Product
 from django.db.models.deletion import CASCADE
 from django.core.validators import MinValueValidator, \
- MaxValueValidator
-from user_profile.models import Address
-from coupon.models import Coupon
+    MaxValueValidator
+from ..user_profile.models import Address
+from ..coupon.models import Coupon
 # Create your models here.
-from django.contrib.auth import get_user_model 
-User=get_user_model()
-import uuid
+from django.contrib.auth import get_user_model
 from django.utils import timezone
+User = get_user_model()
 
 def gen_issue_traking():
-    import string    
-    import random 
+    import string
+    import random
     S = 10
-    ran = ''.join(random.choices(string.ascii_uppercase + string.digits, k = S))    
+    ran = ''.join(random.choices(string.ascii_uppercase + string.digits, k=S))
     return ran
 
 
-
 class DatePikcer(models.Model):
-    date=models.DateField(
+    date = models.DateField(
         default=timezone.now,
         verbose_name='تاریخ',
     )
@@ -37,32 +35,33 @@ class DatePikcer(models.Model):
     def __str__(self):
         return str(self.date)
 
+
 class Order(models.Model):
-    STATUS_CHOICE={
-        ('failed','ناموفق'),
-        ('unpaid','پرداخت نشده'),
-        ('returned','بازگشت داده شد'),
-        ('sending','درحال ارسال'),
-        ('delivered','تحویل'),
+    STATUS_CHOICE = {
+        ('failed', 'ناموفق'),
+        ('unpaid', 'پرداخت نشده'),
+        ('returned', 'بازگشت داده شد'),
+        ('sending', 'درحال ارسال'),
+        ('delivered', 'تحویل'),
     }
 
-    user=models.ForeignKey(
+    user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         verbose_name='کاربر'
     )
-    address=models.ForeignKey(
+    address = models.ForeignKey(
         Address,
         on_delete=models.CASCADE,
         verbose_name="ادرس",
         blank=True,
         null=True
     )
-    created=models.DateTimeField(
+    created = models.DateTimeField(
         auto_now_add=True,
         verbose_name='ساخت شده'
     )
-    updated=models.DateTimeField(
+    updated = models.DateTimeField(
         auto_now=True,
         verbose_name='بروز رسانی شده'
     )
@@ -75,7 +74,7 @@ class Order(models.Model):
     discount = models.IntegerField(
         default=0,
         validators=[MinValueValidator(0),
-        MaxValueValidator(100)]
+                    MaxValueValidator(100)]
     )
     coupon = models.ForeignKey(
         Coupon,
@@ -84,69 +83,63 @@ class Order(models.Model):
         blank=True,
         on_delete=models.SET_NULL
     )
-    datepikcer= models.ForeignKey(
+    datepikcer = models.ForeignKey(
         DatePikcer,
         on_delete=models.CASCADE,
         verbose_name='زمان ارسال',
     )
-    
 
     class Meta:
-        verbose_name='سفارش'
-        verbose_name_plural='سفارشات'
+        verbose_name = 'سفارش'
+        verbose_name_plural = 'سفارشات'
 
     def __str__(self):
-        return str(self.user)    
-        
+        return str(self.user)
+
     def update_time(self):
-        if self.updated!=self.created:
+        if self.updated != self.created:
             return self.updated
         else:
             return "اپدیت نشده است"
 
-    update_time.short_description='زمان اپدیت'
+    update_time.short_description = 'زمان اپدیت'
 
-    # def get_total_cost(self):
-    #     total_cost = sum(item_product.get_cost() for item_product in self.item.all())
-    #     return total_cost - total_cost * \
-    #         (self.discount / float(100))
-    # get_total_cost.short_description='قیمت کل '
 
 class OrderItem(models.Model):
-    order=models.ForeignKey(
+    order = models.ForeignKey(
         Order,
         on_delete=models.CASCADE,
         related_name='item',
         verbose_name='سفارش'
     )
-    product=models.ForeignKey(
+    product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
         related_name="product_item",
         verbose_name='محصول',
     )
-    price=models.FloatField(
+    price = models.FloatField(
         verbose_name='قیمت',
     )
-    total_price=models.FloatField(
+    total_price = models.FloatField(
         verbose_name='قیمت کل',
         default=1,
     )
-    color=models.CharField(
+    color = models.CharField(
         max_length=50,
         verbose_name='رنگ',
-        blank=True,null=True,
+        blank=True, null=True,
     )
-    size=models.CharField(
+    size = models.CharField(
         max_length=50,
         verbose_name='سایز',
-        blank=True,null=True,
+        blank=True, null=True,
     )
-    quantity=models.IntegerField(
+    quantity = models.IntegerField(
         default=1,
         verbose_name='تعداد',
     )
-    product_arrival_time=models.DateField(
+    product_arrival_time = models.DateField(
         default=timezone.now,
     )
     issue_tracking = models.CharField(
@@ -155,16 +148,17 @@ class OrderItem(models.Model):
     )
 
     class Meta:
-        verbose_name='کالا'
-        verbose_name_plural='کالاها'
+        verbose_name = 'کالا'
+        verbose_name_plural = 'کالاها'
 
     def __str__(self):
         return str(self.product)
 
     def get_cost(self):
         return self.price * self.quantity
-    get_cost.short_description='کل قیمت'
 
-    def save(self,*args,**kwargs):
-        self.total_price=self.get_cost()
+    get_cost.short_description = 'کل قیمت'
+
+    def save(self, *args, **kwargs):
+        self.total_price = self.get_cost()
         super(OrderItem, self).save(*args, **kwargs)

@@ -1,4 +1,4 @@
-from cart.cart import Cart
+from ..cart.cart import Cart
 from django.shortcuts import redirect
 
 class ProductExistMixin(object):

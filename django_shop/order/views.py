@@ -1,9 +1,9 @@
 from django.shortcuts import redirect, render, HttpResponse
-from cart.cart import Cart
+from ..cart.cart import Cart
 from .models import OrderItem, Order, DatePikcer
 from django.contrib.auth import get_user_model
 from django.views import View
-from user_profile.models import Address
+from ..user_profile.models import Address
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .mixins import ProductExistMixin
@@ -13,11 +13,13 @@ import datetime
 from django.core.exceptions import BadRequest
 from .forms import OrderCreateForm, ChoicesForm
 from .blogic.selectors import (
-    address_list,
     dates_list,
-    active_address,
-    get_address,
     date_get,
+)
+from ..user_profile.blogic.selectors import (
+    address_list,
+    active_address,
+    get_address
 )
 from .blogic.services import activate_address, order_create
 User = get_user_model()

@@ -2,13 +2,10 @@ import datetime
 from typing import Iterable
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
-from ..models import Address, DatePikcer
+from ..models import Address, DatePikcer, OrderItem
+from django.contrib.auth import get_user_model
 
-
-def address_list(*, user) -> Iterable[Address]:
-    return Address.objects.filter(
-        user=user
-    )
+User = get_user_model()
 
 
 def dates_list() -> Iterable[DatePikcer]:
@@ -23,11 +20,7 @@ def date_get(**kwargs) -> DatePikcer:
     return get_object_or_404(DatePikcer, **kwargs)
 
 
-def active_address() -> Address:
-    return Address.objects.get(
-        active_addres=True
-    )
-
-
-def get_address(**kwargs) -> Address:
-    return get_object_or_404(Address, **kwargs)
+def list_order_item(*, user: User) -> Iterable[OrderItem]:
+    return OrderItem.objects.filter(
+        order__user=user
+    ).select_related('order')
