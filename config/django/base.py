@@ -2,7 +2,7 @@ import os
 from config.env import env, BASE_DIR
 
 env.read_env(os.path.join(BASE_DIR, ".env"))
-
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_shop.config')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '=ug_ucl@yi6^mrcjyz%(u0%&g2adt#bz3@yos%#@*t#t!ypx=a'
 
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     *THIRD_PARTY_APPS,
     *LOCAL_APPS,
 ]
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -190,6 +191,8 @@ CACHE_TTL = 60 * 15
 APP_DOMAIN = env("APP_DOMAIN", default="http://localhost:8000")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CART_SESSION_ID = 'cart'
 
 from config.settings.cors import *  # noqa
 # from config.settings.jwt import *  # noqa
