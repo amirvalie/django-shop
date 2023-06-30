@@ -2,7 +2,7 @@ import datetime
 from typing import Iterable
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
-from ..models import Address, DatePikcer, OrderItem
+from ..models import DatePikcer, OrderItem
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
