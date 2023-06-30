@@ -17,7 +17,6 @@ LOCAL_APPS = [
     'django_shop.core.apps.CoreConfig',
     'django_shop.common.apps.CommonConfig',
     'django_shop.django_phone_login.apps.DjangoPhoneLoginConfig',
-    'django_shop.authentication.apps.AuthenticationConfig',
     'django_shop.products.apps.ProductsConfig',
     'django_shop.categories.apps.CategoriesConfig',
     'django_shop.coupon.apps.CouponConfig',
@@ -36,6 +35,8 @@ THIRD_PARTY_APPS = [
     'corsheaders',
     'drf_spectacular',
     'django_extensions',
+    'widget_tweaks',
+    'django_comments',
 ]
 
 INSTALLED_APPS = [
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
@@ -61,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_shop.django_phone_login.middleware.IpAddressMiddleware'
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -73,7 +76,7 @@ AUTHENTICATION_BACKENDS = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -163,17 +166,23 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
-    'DEFAULT_AUTHENTICATION_CLASSES': []
 }
 
 
 # Redis
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django_redis.cache.RedisCache',
+#         'LOCATION': env("REDIS_LOCATION", default="redis://localhost:6379"),
+#     }
+# }
+
 CACHES = {
     'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': env("REDIS_LOCATION", default="redis://localhost:6379"),
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     }
 }
+
 # Cache time to live is 15 minutes.
 CACHE_TTL = 60 * 15
 
@@ -183,9 +192,9 @@ APP_DOMAIN = env("APP_DOMAIN", default="http://localhost:8000")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 from config.settings.cors import *  # noqa
-from config.settings.jwt import *  # noqa
+# from config.settings.jwt import *  # noqa
 from config.settings.sessions import *  # noqa
-from config.settings.celery import *  # noqa
+# from config.settings.celery import *  # noqa
 from config.settings.swagger import *  # noqa
 #from config.settings.sentry import *  # noqa
 #from config.settings.email_sending import *  # noqa
