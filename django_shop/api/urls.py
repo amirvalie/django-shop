@@ -6,5 +6,5 @@ urlpatterns = [
     path('', include(('django_shop.coupon.urls', 'coupon'))),
     path('', include(('django_shop.user_profile.urls', 'user_profile'))),
     path('', include(('django_shop.order.urls', 'order'))),
-    path('', include(('django_shop.cart.urls', 'cart'))),
+    path('cart/', include(('django_shop.cart.urls', 'cart'))),
 ]
