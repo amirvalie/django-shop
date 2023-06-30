@@ -28,10 +28,13 @@ User = get_user_model()
 class SelectAddressView(LoginRequiredMixin, ProductExistMixin, View):
     template_name = 'order/address_list.html'
 
+    def get_queryset(self):
+        return address_list(user=self.request.user)
+
     def get(self, request, *args, **kwargs):
         context = dict()
         context["cart"] = Cart(self.request)
-        context['addresses'] = address_list(user=self.request.user)
+        context['addresses'] = self.get_queryset()
         if self.get_queryset():
             context['active_address'] = self.get_queryset().get(
                 active_address=True,
@@ -45,7 +48,7 @@ class SelectAddressView(LoginRequiredMixin, ProductExistMixin, View):
 
 class ActiveAddressView(View):
     def post(self, request, *args, **kwargs):
-        old_active_address = active_address()
+        old_active_address = active_address(user=request.user)
         choices = [
             (f'{obj_id}', f'address_{obj_id}')
             for obj_id in address_list(user=self.request.user).values_list('id', flat=True)
