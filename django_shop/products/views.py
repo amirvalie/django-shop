@@ -25,6 +25,7 @@ from .blogic.selectors import (
 from .blogic.services import (
     add_user_to_product_visits
     )
+from ..cart.forms import CartAddProductFrom
 from ..categories.blogic.selectors import category_list
 
 
@@ -52,9 +53,9 @@ class ProductDetail(DetailView):
 
     def get_object(self):
         slug = self.kwargs.get('slug')
-        product = get_product(slug)
+        product = get_product(slug=slug)
         ip_address = self.request.user.ip_address
-        add_user_to_product_visits(product, ip_address)
+        add_user_to_product_visits(ip_address=ip_address, product=product)
         return product
 
     def get_context_data(self, **kwargs):
@@ -84,7 +85,7 @@ class ProductsRelatedCategory(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return category_products(self.kwargs.get('slug'))
+        return category_products(slug=self.kwargs.get('slug'))
 
 
 class SpecialOffer(ListView):

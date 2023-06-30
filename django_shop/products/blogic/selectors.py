@@ -49,8 +49,8 @@ def brand_list() -> Iterable[Brand]:
     return Brand.objects.all()
 
 
-def get_product(*, slug: str) -> Product:
-    return get_object_or_404(Product, slug=slug)
+def get_product(**kwargs) -> Product:
+    return get_object_or_404(Product, **kwargs)
 
 
 def related_product_list(*, product: Product) -> Iterable[Product]:
