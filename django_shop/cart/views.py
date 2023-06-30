@@ -40,8 +40,9 @@ def cart_remove(request, product_id):
 def cart_detail(request):
     cart = Cart(request)
     for item in cart:
-        if item['color'] is not None:
+        if item['color']:
             try:
+                print(item)
                 color = item['product'].colors.get(color__name=item['color'])
                 item['code'] = color.color.code
             except KeyError:
