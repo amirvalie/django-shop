@@ -1,0 +1,22 @@
+{% extends 'profile/base.html'%}
+{% block title_section %}حذف آدرس{% endblock title_section %}
+{% block body %}
+<section class="content">
+    <div class="container-fluid">
+        <div class="col-md-8 text-center col-centered">
+            <div class="card card-danger">
+              <div class="card-header">
+                <h4 class="text-left">حذف آدرس</h3>
+              </div>
+              <div class="card-body">
+                <form method="post">{% csrf_token %}
+                    <h2>ایا مطمئن هستید که میخواید این  ادرس را حذف کنید؟</h2>
+                    <p>آدرس: {{object.address}} </p>
+                    <button type="submit" class="btn btn-block btn-outline-danger btn-bg" style="width:30%;margin:auto;">تایید</button>
+                </form>
+              </div>
+            </div>
+          </div>
+    </div>
+</section>
+{% endblock %}

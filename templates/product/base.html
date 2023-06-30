@@ -1,0 +1,138 @@
+ {% load static %}
+ {% load template_tags %}
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+    <meta charset="utf-8">
+    <title>{%block title%}MultiShop - Online Shop Website Template{%endblock title%}</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'product/img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">  
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link rel="stylesheet" href="{% static 'product/css/custome.css' %}">
+    <link href="{% static 'product/lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'product/lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'product/css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+    <!-- Topbar Start -->
+    <div class="container-fluid">
+        <div class="row align-items-center py-3 px-xl-5 d-none d-lg-flex">
+            <div class="col-lg-4">
+                <a href="{% url 'product:home' %}" class="text-decoration-none">
+                    <span class="h1 text-uppercase text-primary bg-dark px-2">Multi</span>
+                    <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
+                </a>
+            </div>
+            <div class="col-lg-4 col-6 text-right pt-4">
+                <form class="mb-30" action="{% url 'product:search_result'%}" mtehod="GET">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-0 p-4" placeholder="جستجو" name="q">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-dark">ثبت</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-4 col-6 text-left">
+                <p class="m-0 pl-4">شماره پشتیبانی</p>
+                <h5 class="m-0">+012 345 6789</h5>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+    {% navbar %}
+    {% block content%}{% endblock%}
+    <!-- Footer Start -->
+    <hr>
+    <div class="container-fluid text-dark mt-5 pt-5">
+        <div class="row px-xl-5 pt-5">
+            <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5" style="color:black;">
+                <h5 class="text-dark text-uppercase mb-4">راه ارتباط با ما</h5>
+                <p class="mb-4">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
+                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
+                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
+            </div>
+            <div class="col-lg-8 col-md-12 " style="color:black;">
+                <div class="row">
+                    <div class="col-md-5 mb-5 px-5" style="color:black;">
+                        <h5 class="text-dark text-uppercase mb-4">دسترسی سریع</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-dark mb-2" href="{% url 'product:home' %}">خانه<i class="fa fa-angle-left mr-2"></i></a>
+                            <a class="text-dark mb-2" href="{% url 'orders:checkout' %}">پرداخت<i class="fa fa-angle-left mr-2"></i></a>
+                            <a class="text-dark" href="#">تماس با ما<i class="fa fa-angle-left mr-2"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-5 px-5">
+                        <h5 class="text-dark text-uppercase mb-4">جدید ترین اخبار</h5>
+                        <p>
+                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. 
+                        </p>
+                        <form action="">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Your Email Address">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary">ثبت نام</button>
+                                </div>
+                            </div>
+                        </form>
+                        <h6 class="text-dark text-uppercase mt-4 mb-3">مارو دنبال کنید</h6>
+                        <div class="d-flex">
+                            <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a class="btn btn-primary btn-square" href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row border-top mx-xl-5 py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
+            <div class="col-md-6 px-xl-0">
+                <p class="mb-md-0 text-center text-md-left text-dark">
+                    &copy; <a class="text-primary" href="#">Domain</a>. All Rights Reserved. Designed
+                    by
+                    <a class="text-primary" href="https://htmlcodex.com">HTML Codex</a>
+                </p>
+            </div>
+            <div class="col-md-6 px-xl-0 text-center text-md-right">
+                <img class="img-fluid" src="{% static 'product/img/payments.png' %}" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'product/lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'product/lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="{% static 'product/mail/jqBootstrapValidation.min.js' %}"></script>
+    <script src="{% static 'product/mail/contact.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'product/js/main.js' %}"></script>
+</body>
+
+</html>

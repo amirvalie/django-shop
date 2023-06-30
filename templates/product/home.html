@@ -1,0 +1,213 @@
+{% extends 'product/base.html' %}
+{% load template_tags %}
+{% block title %}{% endblock title%}
+{% block content %}
+    <!-- Carousel Start -->
+    <div class="container-fluid mb-3">
+        <div class="row">
+            <div class="col-lg">
+                <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        {% for number_of_carousel in special_offers %}
+                            <li data-target="#header-carousel" data-slide-to="{{forloop.counter0}}"></li>
+                        {% endfor %}
+                    </ol>
+                    <div class="carousel-inner">
+                        {% for category in special_offers %}
+                        <div class="carousel-item position-relative {% if forloop.counter == 1 %}active{% endif %}" style="height: 430px;">
+                            <img class="position-absolute w-100 h-100" src="{{category.thumbnail.url}}" style="object-fit: cover;">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">{{category.title}}</h1>
+                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">{{category.description}}</p>
+                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="{{category.get_absolute_url}}">همین حالا خرید</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Carousel End -->
+
+<!-- Featured Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5 pb-3">
+        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+            <div class="d-flex align-items-center text-light bg-dark mb-4 custome-border" style="padding: 30px;">
+                <p class="font-weight-semi-bold m-0">کیفیت محصولات</p>
+                <h3 class="fa fa-check text-primary mr-3"></h3>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+            <div class="d-flex align-items-center text-light bg-dark mb-4 custome-border" style="padding: 30px;">
+                <p class="font-weight-semi-bold m-0">حمل نقل رایگان</p>
+                <h3 class="fa fa-shipping-fast text-primary mr-3"></h3>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+            <div class="d-flex align-items-center text-light bg-dark mb-4 custome-border" style="padding: 30px;">
+                <p class="font-weight-semi-bold m-0">بازگشت کالا پس از 14 روز</p>
+                <h3 class="fas fa-exchange-alt text-primary mr-3"></h3>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+            <div class="d-flex align-items-center text-light bg-dark mb-4 custome-border" style="padding: 30px;">
+                <p class="font-weight-semi-bold m-0">پشتیبانی شبانه روزی</p>
+                <h3 class="fa fa-phone-volume text-primary mr-3"></h3>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Featured End -->
+
+<!-- Categories Start -->
+<div class="container-fluid pt-5">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">دسته بندی ها</span></h2>
+    <div class="row px-xl-5 pb-3">
+        {% for category in categories %}
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="{{category.get_absolute_url}}">
+                    <div class="cat-item d-flex align-items-center mb-4 custome-border" style="border-radius:20px;">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="{{category.thumbnail.url}}" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>{{category.title}}</h6>
+                            <small class="text-body">{{category.product.count}}</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Categories End -->
+
+
+<!-- Products Start -->
+<div class="container-fluid pt-5 pb-3">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">پر بازدید ترین محصولات</span></h2>
+    <div class="row px-xl-5">
+        {% for product in most_visit_product %}
+        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <div class="product-item bg-light-item mb-4 custome-border">
+                <div class="product-img position-relative overflow-hidden">
+                    <a href="{{product.get_absolute_url}}">
+                        <img class="img-fluid w-100" src="{{product.thumbnail.url}}" alt="">
+                    </a>
+                </div>
+                <div class="text-center py-4">
+                    <a class="h5 text-decoration-none text-truncate" href="">{{product.title|truncatewords:6}}</a>
+                    <div class="d-flex align-items-center justify-content-center mt-3">
+                        {% if product.valid_discount %}
+                            <h6 class="text-muted ml-2"><del>{{product.price|price_format}}</del></h6>
+                            <h6>{{product.cal_discount|price_format}}</h6>
+                        {% else %}
+                        <h6>{{product.price|price_format}}تومان</h6>
+                        {% endif %}
+                    </div> 
+                    <div class="d-flex mb-1 mt-3 mr-3 justify-content-around align-items-center">
+                        <div>
+                            {% if product.available_product and product.available  %}
+                                <span class="">محصول در انبار موجود است</span>
+                            {% else %}
+                                <span class="text-danger footer">محصول در انبار موجود نیست</span>
+                            {% endif %}
+                        </div>
+                        <div>
+                            {% if not product.id|product_rates == none %}
+                            <span>{{product.id|product_rates}}</span><small class="fa fa-star text-star mr-1"></small>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Products End -->
+
+<!-- Offer Start -->
+<div class="container-fluid pt-5 pb-3">
+    <div class="row px-xl-5">
+        {% for category in season_discounts %}
+        <div class="col-md">
+            <a href="{% url 'product:special_category_list' category.slug %}">
+                <div class="product-offer mb-30 custome-border" style="height: 300px;">
+                        <img class="img-fluid" src="{{category.thumbnail.url}}" alt="">
+                </div>
+            </a>
+
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Offer End -->
+
+
+<!-- Products Start -->
+<div class="container-fluid pt-5 pb-3">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">جدید ترین محصولات</span></h2>
+    <div class="row px-xl-5">
+        {% for product in products %}
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <div class="product-item bg-light-item mb-4 custome-border">
+                    <div class="product-img position-relative overflow-hidden">
+                        <a href="{{product.get_absolute_url}}">
+                            <img class="img-fluid w-100" src="{{product.thumbnail.url}}" alt="">
+                        </a>
+                    </div>
+                    <div class="text-center py-4">
+                        <a class="h5 text-decoration-none text-truncate" href="{{product.get_absolute_url}}">{{product.title|truncatewords:6}}</a>
+                        <div class="d-flex align-items-center justify-content-center mt-3">
+                            {% if product.valid_discount %}
+                                <h6 class="text-muted ml-2"><del>{{product.price|price_format}}</del></h6>
+                                <h6>{{product.cal_discount|price_format}}</h6>
+                            {% else %}
+                                <h6>{{product.price|price_format}}</h6>
+                            {% endif %}
+                        </div>
+                        <div class="d-flex mb-1 mt-3 justify-content-around align-items-center">
+                            <div>
+                                {% if product.available_product and product.available  %}
+                                    <span style="font-size:15px;">محصول در انبار موجود است</span>
+                                {% else %}
+                                    <span class="text-danger footer">محصول در انبار موجود نیست</span>
+                                {% endif %}
+                            </div>
+                            <div>
+                                {% if not product.id|product_rates == none %}
+                                <span>{{product.id|product_rates}}</span><small class="fa fa-star text-star mr-1"></small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Products End -->
+
+
+<!-- Vendor Start -->
+<div class="container-fluid py-5">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">برندها</span></h2>
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="owl-carousel vendor-carousel">
+            {% for brand in brands %}
+                <div class="bg-light p-4 custome-border">
+                    <a href="{% url 'product:brand_landing' brand.brand_name %}"><img style="height:80px ;" src="{{brand.logo.url}}" alt=""></a>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Vendor End -->
+{% endblock content%}

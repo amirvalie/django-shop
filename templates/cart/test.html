@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <form name="myform">
+        <p>Please select your favorite color:</p>
+        <input type="radio" id="red" name="select_color" value="red">
+        <label for="html">red</label><br>
+        <input type="radio" id="blue" name="select_color" value="blue">
+        <label for="css">blue</label><br>
+        <input type="radio" id="green" name="select_color" value="green">
+        <label for="javascript">green</label>
+        </p>
+        <input type="hidden" id="id_color" name="color">
+        <label for="id_quantity">تعداد محصول:</label>
+        <select name="quantity" id="id_quantity">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+        <select name="size" id="id_sieze">
+            <option value="X">X</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+        </select>
+        <button type="submit" onclick="displayRadioValue()">Submit</button>
+    </form>
+<script>
+    function displayRadioValue() {
+        var ele = document.getElementsByName('select_color');
+        for(i = 0; i < ele.length; i++) {
+            if(ele[i].checked)
+            document.forms.myform.id_color.value=ele[i].value;
+        }
+    }
+</script>
+</body>
+</html>

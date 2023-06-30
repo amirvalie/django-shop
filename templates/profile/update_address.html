@@ -1,0 +1,16 @@
+{% extends 'profile/base.html'%}
+{% block title_section %}به روز رسانی آدرس{% endblock title_section %}
+{% block body %}
+<section class="content">
+    <div class="container-fluid">
+        <div class="card card-info">
+            <div class="card-header">
+            <h3 class="text-left">تغییر آدرس</h3>
+            </div>
+            <div class="card-body">
+            {% include 'profile/address_form.html' %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock body%}
