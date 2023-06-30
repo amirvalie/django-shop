@@ -13,5 +13,6 @@ urlpatterns = [
     path("api/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
     path("redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
     path('admin/', admin.site.urls),
-    path('', include(('django_shop.api.urls', 'api'))),
+    path('', include('django_shop.api.urls')),
+    path('comments/', include('django_comments.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
