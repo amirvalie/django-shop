@@ -1,5 +1,7 @@
 from django.db import models
-from django.urls import  reverse
+from django.urls import reverse
+
+
 # Create your models here.
 
 class CategoryManager(models.Manager):
@@ -8,25 +10,25 @@ class CategoryManager(models.Manager):
 
 
 class CategoryABC(models.Model):
-    STATUS_CHOICE={
-        ('p','انتشار'),
-        ('d','پیش نویس'),
+    STATUS_CHOICE = {
+        ('p', 'انتشار'),
+        ('d', 'پیش نویس'),
     }
-    title=models.CharField(
+    title = models.CharField(
         max_length=200,
         verbose_name='عنوان',
     )
-    slug=models.SlugField(
+    slug = models.SlugField(
         max_length=100,
         unique=True,
         verbose_name='ادرس دسته بندی'
     )
-    status=models.CharField(
+    status = models.CharField(
         max_length=1,
         choices=STATUS_CHOICE,
         verbose_name='وضعیت',
     )
-    thumbnail=models.ImageField(
+    thumbnail = models.ImageField(
         upload_to='category',
         verbose_name='عکس',
         null=True,
@@ -36,8 +38,9 @@ class CategoryABC(models.Model):
     class Meta:
         abstract = True
 
+
 class Category(CategoryABC):
-    parent=models.ForeignKey(
+    parent = models.ForeignKey(
         'self',
         on_delete=models.SET_NULL,
         null=True,
@@ -48,16 +51,16 @@ class Category(CategoryABC):
     )
 
     def get_absolute_url(self):
-        return reverse('product:category_list',args=[self.slug])
+        return reverse('product:category_list', args=[self.slug])
 
     def __str__(self):
         return self.title
 
     class Meta:
-        verbose_name='دسته بندی'
-        verbose_name_plural='دسته بندی ها'
+        verbose_name = 'دسته بندی'
+        verbose_name_plural = 'دسته بندی ها'
 
-    objects=CategoryManager()
+    objects = CategoryManager()
 
 
 class Banner(CategoryABC):
