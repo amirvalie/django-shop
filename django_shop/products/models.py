@@ -6,8 +6,10 @@ from django.utils.html import format_html
 from django.contrib.auth import get_user_model
 from django_shop.categories.models import Category
 from django_shop.categories.models import Banner
-from django.urls import  reverse
-User=get_user_model()
+from django.urls import reverse
+
+User = get_user_model()
+
 
 # Create your models here.
 
@@ -48,14 +50,15 @@ class ProductManager(models.Manager):
 
 
 class Brand(models.Model):
-    brand_name=models.CharField(max_length = 100,unique=True,verbose_name='نام برند')
-    logo = models.ImageField(upload_to='logo',max_length=100,verbose_name='لوگو')
+    brand_name = models.CharField(max_length=100, unique=True, verbose_name='نام برند')
+    logo = models.ImageField(upload_to='logo', max_length=100, verbose_name='لوگو')
+
     class Meta:
-        verbose_name='برند'
-        verbose_name_plural='برندها'
+        verbose_name = 'برند'
+        verbose_name_plural = 'برندها'
 
     def display_logo(self):
-        logo_format=format_html(
+        logo_format = format_html(
             f'<image style="width:100px" src="{self.logo.url}">'
         )
         return logo_format
@@ -107,22 +110,22 @@ class IpAddress(models.Model):
 
 
 class DiscountProduct(models.Model):
-    discount_percent=models.IntegerField(
-        validators=[MinValueValidator(0),MaxValueValidator(100)],verbose_name="درصد تخفیف"
+    discount_percent = models.IntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(100)], verbose_name="درصد تخفیف"
     )
-    valid_from=models.DateTimeField(
+    valid_from = models.DateTimeField(
         verbose_name="اعتبار از"
     )
-    valid_to=models.DateTimeField(
+    valid_to = models.DateTimeField(
         verbose_name='اعتبار تا'
     )
-    active=models.BooleanField(
+    active = models.BooleanField(
         verbose_name="فعال"
     )
 
     class Meta:
-        verbose_name='تخفیف محصول'
-        verbose_name_plural='تخفیف محصولات'
+        verbose_name = 'تخفیف محصول'
+        verbose_name_plural = 'تخفیف محصولات'
 
     def __str__(self):
         return str(self.discount_percent) + 'درصد'
@@ -257,76 +260,78 @@ class Product(models.Model):
 
 
 class Specification(models.Model):
-    SECTION={
-        ('short_spec','توضیحات کوتاه'),
-        ('long_spec','توضیحات بلند'),
-        ('both','هردو'),
+    SECTION = {
+        ('short_spec', 'توضیحات کوتاه'),
+        ('long_spec', 'توضیحات بلند'),
+        ('both', 'هردو'),
     }
     product = models.ForeignKey(
-            Product,
-            on_delete=models.CASCADE,
-            verbose_name='محصول',
-            related_name='spec'
-        )
-    key=models.CharField(
-            max_length=50,
-            verbose_name='ویژگی'
-        )
-    value=models.CharField(
-            max_length=150,
-            verbose_name='مقدار ویژگی'
-        )
-    section=models.CharField(
-            max_length=20,
-            choices=SECTION,
-            verbose_name='بخش'
-        )
+        Product,
+        on_delete=models.CASCADE,
+        verbose_name='محصول',
+        related_name='spec'
+    )
+    key = models.CharField(
+        max_length=50,
+        verbose_name='ویژگی'
+    )
+    value = models.CharField(
+        max_length=150,
+        verbose_name='مقدار ویژگی'
+    )
+    section = models.CharField(
+        max_length=20,
+        choices=SECTION,
+        verbose_name='بخش'
+    )
+
 
 class ProductImage(models.Model):
-    product=models.ForeignKey(
-            Product,
-            on_delete=models.CASCADE,
-            verbose_name='محصول',
-            related_name='product_image'
-        )
-    image=models.FileField(
-            upload_to='image',
-            verbose_name='عکس'
-        )
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        verbose_name='محصول',
+        related_name='product_image'
+    )
+    image = models.FileField(
+        upload_to='image',
+        verbose_name='عکس'
+    )
 
     class Meta:
-        verbose_name='عکس'
-        verbose_name_plural='عکس ها'
+        verbose_name = 'عکس'
+        verbose_name_plural = 'عکس ها'
+
 
 class ProductColor(models.Model):
     product = models.ForeignKey(
-            Product,
-            on_delete=models.CASCADE,
-            verbose_name='محصول',
-            related_name='colors',
-        )
+        Product,
+        on_delete=models.CASCADE,
+        verbose_name='محصول',
+        related_name='colors',
+    )
     color = models.ForeignKey(
-            Color,
-            on_delete=models.CASCADE,
-            verbose_name='رنگ محصول',
-        )
+        Color,
+        on_delete=models.CASCADE,
+        verbose_name='رنگ محصول',
+    )
     price = models.FloatField(
-            verbose_name='قیمت رنگ محصول'
-        )
+        verbose_name='قیمت رنگ محصول'
+    )
+
 
 class ProductSize(models.Model):
     product = models.ForeignKey(
-            Product,
-            on_delete=models.CASCADE,
-            verbose_name='محصول',
-            related_name='sizes',
-        )
+        Product,
+        on_delete=models.CASCADE,
+        verbose_name='محصول',
+        related_name='sizes',
+    )
     size = models.ForeignKey(
-            Size,
-            on_delete=models.CASCADE,
-            verbose_name='اندازه محصول',
-        )
+        Size,
+        on_delete=models.CASCADE,
+        verbose_name='اندازه محصول',
+    )
     price = models.FloatField(
-            verbose_name='قیمت اندازه محصول',
-        )
-
+        verbose_name='قیمت اندازه محصول',
+    )
