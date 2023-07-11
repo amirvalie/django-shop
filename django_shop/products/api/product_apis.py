@@ -51,7 +51,7 @@ class ProductDetailApi(APIView):
         )
 
 
-class CategoryDetailPutAPi(APIView):
+class CategoryDetailUpdateAPi(APIView):
     @extend_schema(responses=CategorySeriaizer)
     def get(self, request, slug, *args, **kwargs):
         try:
