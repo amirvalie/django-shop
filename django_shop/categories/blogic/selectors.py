@@ -13,10 +13,9 @@ def category_list() -> Iterable[Category]:
     )
 
 
-def get_category(slug: str) -> Category:
-    return get_object_or_404(
-        Category,
-        slug=slug
+def get_category(**kwargs) -> Category:
+    return Category.objects.get(
+        **kwargs
     )
 
 
