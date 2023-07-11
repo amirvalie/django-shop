@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema
 from rest_framework import serializers
-from .serializers import ProductSerializer, CategorySeriaizer
+from .serializers import ProductSerializer, CategorySerializer
 from ...categories.models import Category
 from ..blogic.selectors import (
     product_list,
@@ -52,7 +52,7 @@ class ProductDetailApi(APIView):
 
 
 class CategoryDetailUpdateAPi(APIView):
-    @extend_schema(responses=CategorySeriaizer)
+    @extend_schema(responses=CategorySerializer)
     def get(self, request, slug, *args, **kwargs):
         try:
             category_object = get_category(slug=slug)
@@ -61,10 +61,10 @@ class CategoryDetailUpdateAPi(APIView):
                 {"Doesn't exist": "Category matching query does not exist."},
                 status=status.HTTP_404_NOT_FOUND
             )
-        serializer = CategorySeriaizer(category_object)
+        serializer = CategorySerializer(category_object)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    @extend_schema(request=CategorySeriaizer, responses=CategorySeriaizer)
+    @extend_schema(request=CategorySerializer, responses=CategorySerializer)
     def put(self, request, slug, *args, **kwargs):
         try:
             instance = get_category(slug=slug)
@@ -73,23 +73,23 @@ class CategoryDetailUpdateAPi(APIView):
                 {"Doesn't exist": f"Category with {slug} doesn't exist"},
                 status=status.HTTP_404_NOT_FOUND
             )
-        serializer = CategorySeriaizer(instance, data=request.data)
+        serializer = CategorySerializer(instance, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 class CategoryListCreateAPi(APIView):
-    @extend_schema(responses=CategorySeriaizer)
+    @extend_schema(responses=CategorySerializer)
     def get(self, request, *args, **kwargs):
         queryset = category_list()
         print(queryset)
-        serializer = CategorySeriaizer(queryset, many=True)
+        serializer = CategorySerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    @extend_schema(request=CategorySeriaizer, responses=CategorySeriaizer)
+    @extend_schema(request=CategorySerializer, responses=CategorySerializer)
     def post(self, request, *args, **kwargs):
-        serializer = CategorySeriaizer(data=request.data)
+        serializer = CategorySerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
