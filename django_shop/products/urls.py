@@ -17,6 +17,8 @@ from .api.product_apis import (
     BrandProductApi,
     SpecialOfferProductApi,
     DiscountedProductApi,
+    CategoryDetailUpdateAPi,
+    CategoryListCreateAPi,
 )
 
 app_name = 'product'
@@ -33,13 +35,15 @@ django_urlpatterns = [
 ]
 
 apis_urlpatterns = [
-    path('product_list/', ProductListApi.as_view(), name='product_list_api'),
-    path('product/<slug:slug>/', ProductDetailApi.as_view(), name='product_detail_api'),
-    path('category/<slug:slug>/', CategoryRelatedProductApi.as_view(), name='category_related_products_api'),
-    path('discount/', DiscountedProductApi.as_view(), name='discounted_products_api'),
-    path('best/products/', BestSellingProductApi.as_view(), name='best_selling_products_api'),
-    path('brand/products/<str:brand_name>/', BrandProductApi.as_view(), name='brand_products_api'),
-    path('product_detail/<slug:slug>/', SpecialOfferProductApi.as_view(), name='special_offer_products_api'),
+    path('api/products/search/', ProductListApi.as_view(), name='product_list_api'),
+    path('api/product/<slug:slug>/', ProductDetailApi.as_view(), name='product_detail_api'),
+    path('api/products/category/<slug:category_slug>/', CategoryRelatedProductApi.as_view(), name='category_related_products_api'),
+    path('api/products/discount/', DiscountedProductApi.as_view(), name='discounted_products_api'),
+    path('api/products/best-selling/', BestSellingProductApi.as_view(), name='best_selling_products_api'),
+    path('api/products/brand/<str:brand_name>/', BrandProductApi.as_view(), name='brand_products_api'),
+    path('api/products/offer/<slug:offer_slug>/', SpecialOfferProductApi.as_view(), name='special_offer_products_api'),
+    path('api/category/<slug:slug>/', CategoryDetailUpdateAPi.as_view(), name='category_detail_put_api'),
+    path('api/category/', CategoryListCreateAPi.as_view(), name='category_list_create_api'),
 ]
 
 urlpatterns = [
