@@ -18,10 +18,12 @@ from ..blogic.selectors import (
 )
 from ...categories.blogic.selectors import get_category, category_list
 from django.core.exceptions import ObjectDoesNotExist
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 
 
 class ProductListApi(APIView):
     pagination_class = LimitOffsetPagination
+    permission_classes = [AllowAny]
 
     class FilterSerializer(serializers.Serializer):
         title = serializers.CharField(max_length=100)
@@ -41,6 +43,7 @@ class ProductListApi(APIView):
 
 
 class ProductDetailApi(APIView):
+    permission_classes = [AllowAny]
 
     @extend_schema(request=ProductSerializer)
     def get(self, request, slug, *args, **kwargs):
@@ -52,6 +55,13 @@ class ProductDetailApi(APIView):
 
 
 class CategoryDetailUpdateAPi(APIView):
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            self.permission_classes = [AllowAny]
+        else:
+            self.permission_classes = [IsAdminUser]
+        return super(self.__class__, self).get_permissions()
+
     @extend_schema(responses=CategorySerializer)
     def get(self, request, slug, *args, **kwargs):
         try:
@@ -80,10 +90,16 @@ class CategoryDetailUpdateAPi(APIView):
 
 
 class CategoryListCreateAPi(APIView):
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            self.permission_classes = [AllowAny]
+        else:
+            self.permission_classes = [IsAdminUser]
+        return super(self.__class__, self).get_permissions()
+
     @extend_schema(responses=CategorySerializer)
     def get(self, request, *args, **kwargs):
         queryset = category_list()
-        print(queryset)
         serializer = CategorySerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -97,6 +113,7 @@ class CategoryListCreateAPi(APIView):
 
 class CategoryRelatedProductApi(APIView):
     pagination_class = LimitOffsetPagination
+    permission_classes = [AllowAny]
 
     @extend_schema(request=ProductSerializer)
     def get(self, request, category_slug, *args, **kwargs):
@@ -107,6 +124,7 @@ class CategoryRelatedProductApi(APIView):
 
 class SpecialOfferProductApi(APIView):
     pagination_class = LimitOffsetPagination
+    permission_classes = [AllowAny]
 
     @extend_schema(request=ProductSerializer)
     def get(self, request, offer_slug, *args, **kwargs):
@@ -117,6 +135,7 @@ class SpecialOfferProductApi(APIView):
 
 class DiscountedProductApi(APIView):
     pagination_class = LimitOffsetPagination
+    permission_classes = [AllowAny]
 
     @extend_schema(request=ProductSerializer)
     def get(self, request, *args, **kwargs):
@@ -127,6 +146,7 @@ class DiscountedProductApi(APIView):
 
 class BestSellingProductApi(APIView):
     pagination_class = LimitOffsetPagination
+    permission_classes = [AllowAny]
 
     @extend_schema(request=ProductSerializer)
     def get(self, request, *args, **kwargs):
@@ -137,6 +157,7 @@ class BestSellingProductApi(APIView):
 
 class BrandProductApi(APIView):
     pagination_class = LimitOffsetPagination
+    permission_classes = [AllowAny]
 
     @extend_schema(request=ProductSerializer)
     def get(self, request, brand_name, *args, **kwargs):
