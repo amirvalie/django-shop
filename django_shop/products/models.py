@@ -49,7 +49,7 @@ class ProductManager(models.Manager):
 
 class Brand(models.Model):
     brand_name=models.CharField(max_length = 100,unique=True,verbose_name='نام برند')
-    logo = models.ImageField(upload_to='logo',max_length=100,verbose_name='لوگو')
+    logo = models.ImageField(upload_to='image/brands/logo/',max_length=100,verbose_name='لوگو')
     class Meta:
         verbose_name='برند'
         verbose_name_plural='برندها'
@@ -181,7 +181,7 @@ class Product(models.Model):
         verbose_name='تخفیف محصول',
     )
     thumbnail = models.ImageField(
-        upload_to='image',
+        upload_to='image/products/thumbnails/',
         verbose_name='عکس',
     )
     created = models.DateTimeField(

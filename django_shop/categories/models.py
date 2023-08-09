@@ -27,7 +27,7 @@ class CategoryABC(models.Model):
         verbose_name='وضعیت',
     )
     thumbnail=models.ImageField(
-        upload_to='category',
+        upload_to='image/categories/thumbnail/',
         verbose_name='عکس',
         null=True,
         blank=True,
